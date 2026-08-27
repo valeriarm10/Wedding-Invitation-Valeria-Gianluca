@@ -548,6 +548,7 @@ const T = {
     inv:"Invitación", "fecha-larga":"17 de abril de 2027 · Lima", hint:"Toca el sobre para abrir",
     "nos-casamos":"¡Nos casamos!", sabado:"Sábado<br>abril", querido:"Querido",
     "saludo-txt":"nos haría muy felices celebrar este día contigo.",
+     "saludo-txt-plural":"nos haría muy felices celebrar este día con ustedes.",
     ceremonia:"Ceremonia religiosa", "nota-misa":"Llegada 5:30 p.m. · Inicio de la misa 6:00 p.m. Centro histórico de Lima.", llegada:"llegada", inicio:"inicio",
     recepcion:"Recepción", "nota-recep":"Cena, brindis y baile hasta que el cuerpo aguante.", "ver-mapa":"Ver en el mapa",
     vestimenta:"Vestimenta formal", "vestimenta-txt":"Estos son los colores de la boda; si quieres acompañarnos con ellos, nos encantará.",
@@ -574,6 +575,7 @@ const T = {
     inv:"Invitation", "fecha-larga":"April 17, 2027 · Lima", hint:"Tap the envelope to open",
     "nos-casamos":"We're getting married!", sabado:"Saturday<br>April", querido:"Dear",
     "saludo-txt":"it would make us so happy to celebrate this day with you.",
+     "saludo-txt-plural":"it would make us so happy to celebrate this day with you both.",
     ceremonia:"Church ceremony", "nota-misa":"Arrive 5:30 p.m. · Mass begins 6:00 p.m. Historic center of Lima.", llegada:"arrive", inicio:"begins",
     recepcion:"Reception", "nota-recep":"Dinner, toasts and dancing till late.", "ver-mapa":"Open in maps",
     vestimenta:"Formal attire", "vestimenta-txt":"These are the wedding colors; we'd love it if you joined in.",
@@ -597,11 +599,16 @@ const T = {
   }
 };
 let lang = new URLSearchParams(location.search).get("lang") || "es";
+  let esPlural = false;
 const t = (k,...a)=> typeof T[lang][k]==="function" ? T[lang][k](...a) : T[lang][k];
 function aplicarIdioma(){
   document.documentElement.lang = lang;
   document.querySelectorAll("[data-i]").forEach(el=>{ el.innerHTML = T[lang][el.dataset.i]; });
   document.getElementById("lang").textContent = lang==="es" ? "EN" : "ES";
+  if (esPlural){
+    document.querySelector('[data-i="querido"]').textContent = t("queridos");
+    document.querySelector('[data-i="saludo-txt"]').textContent = t("saludo-txt-plural");
+  }
   contador();
 }
 document.getElementById("lang").addEventListener("click", ()=>{ lang = lang==="es"?"en":"es"; aplicarIdioma(); });
@@ -642,7 +649,7 @@ function cargarInvitado(){
   const d = INVITADOS[codigo];
   invitado = { nombre:d.n, plus1:d.p, acompanante:d.a };
   if (!new URLSearchParams(location.search).get("lang") && d.l){ lang = d.l; aplicarIdioma(); }
-  document.getElementById("nombre").textContent = d.a ? (d.n + " & " + d.a) : d.n;
+    document.getElementById("nombre").textContent = d.a ? (d.n + " & " + d.a) : d.n;
   if (d.a){
     document.getElementById("nombre-fijo").textContent = d.a;
     document.getElementById("nombre-fijo-2").textContent = d.a;
@@ -650,9 +657,12 @@ function cargarInvitado(){
     document.getElementById("menu-quien").textContent = " \u2014 " + primerNombre(d.n);
   }
   document.getElementById("bloque-plus1").hidden = !d.p || !!d.a;
-  if (d.a || / y /i.test(d.n)) document.querySelector('[data-i="querido"]').textContent = t("queridos");
-}
-
+   esPlural = !!d.a || / y /i.test(d.n);
+  if (esPlural){
+    document.querySelector('[data-i="querido"]').textContent = t("queridos");
+    document.querySelector('[data-i="saludo-txt"]').textContent = t("saludo-txt-plural");
+  }
+  
 function primerNombre(n){ return String(n||"").split(/\s+y\s+|,/)[0].trim().split(" ")[0]; }
 
 /* ================= FORMULARIO ================= */
