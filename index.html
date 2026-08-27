@@ -642,7 +642,7 @@ function cargarInvitado(){
   const d = INVITADOS[codigo];
   invitado = { nombre:d.n, plus1:d.p, acompanante:d.a };
   if (!new URLSearchParams(location.search).get("lang") && d.l){ lang = d.l; aplicarIdioma(); }
-  document.getElementById("nombre").textContent = d.n;
+  document.getElementById("nombre").textContent = d.a ? (d.n + " & " + d.a) : d.n;
   if (d.a){
     document.getElementById("nombre-fijo").textContent = d.a;
     document.getElementById("nombre-fijo-2").textContent = d.a;
