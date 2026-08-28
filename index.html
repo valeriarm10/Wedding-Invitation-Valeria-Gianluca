@@ -194,12 +194,18 @@ section + section{border-top:1px solid rgba(107,114,57,.28)}
 .icono-regalo{height:44px;margin:0 0 .8rem;display:flex;justify-content:center}
 
 /* calendario */
-.cal{display:flex;justify-content:center;gap:1.6rem;margin-top:2rem;flex-wrap:wrap}
+.cal{display:flex;justify-content:center;gap:.7rem;margin-top:2rem;flex-wrap:wrap}
 .cal a{
-  font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;text-decoration:none;
-  color:var(--oliva-oscuro);border-bottom:1px solid var(--oliva);padding-bottom:3px;cursor:pointer;
+  display:inline-block;padding:.75rem 1.4rem;border-radius:3px;
+  background:var(--oliva);color:#F7F5EE;text-decoration:none;cursor:pointer;
+  font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;
+  transition:background .2s;
 }
-.cal a:hover{color:var(--vino);border-color:var(--vino)}
+.cal a:hover{background:var(--oliva-oscuro)}
+.cal .et{
+  flex-basis:100%;text-align:center;margin-bottom:.2rem;
+  font-size:.68rem;letter-spacing:.28em;text-transform:uppercase;color:var(--oliva-oscuro);
+}
 
 /* dress code */
 .dress{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-top:1.6rem;text-align:center}
@@ -430,6 +436,7 @@ footer{
       </div>
 
       <div class="cal">
+        <span class="et" data-i="cal-titulo">Añadir al calendario</span>
         <a id="cal-google" target="_blank" rel="noopener" data-i="cal-google">Google Calendar</a>
         <a id="cal-ics" data-i="cal-ics">Apple · Outlook</a>
       </div>
@@ -673,7 +680,7 @@ const T = {
     traslado:"Traslado a la recepción",
     "traslado-txt":"Un bus sale de la parroquia a las <span class='hora-bus'>19:00</span>, apenas termine la misa. Recomendamos venir con nosotros: los estacionamientos en Miraflores son limitados.",
     noche:"La noche", "n-coctel":"Cóctel de bienvenida", "n-cena":"Cena", "n-baile":"Baile", "n-fin":"Fin de la fiesta",
-    "cal-google":"Google Calendar", "cal-ics":"Apple · Outlook",
+    "cal-titulo":"Añadir al calendario", "cal-google":"Google Calendar", "cal-ics":"Apple · Outlook",
     calTitulo:"Boda de Valeria & Gianluca",
     calDetalle:"Ceremonia 18:00 en la Parroquia San Pedro de Lima (llegada 17:30). Bus a la recepción 19:00. Recepción desde las 20:00 en Casa García Alvarado, Miraflores.",
     regalos:"Regalos", "regalos-txt":"Su presencia es lo que más nos importa. Si además quieren regalarnos algo, pueden dejarlo en la recepción o enviarlo a una de estas cuentas.",
@@ -707,7 +714,7 @@ const T = {
     traslado:"Ride to the reception",
     "traslado-txt":"A bus leaves the church at <span class='hora-bus'>19:00</span>, right after the mass. We recommend riding with us: parking in Miraflores is limited.",
     noche:"The evening", "n-coctel":"Welcome cocktail", "n-cena":"Dinner", "n-baile":"Dancing", "n-fin":"End of celebration",
-    "cal-google":"Google Calendar", "cal-ics":"Apple · Outlook",
+    "cal-titulo":"Add to calendar", "cal-google":"Google Calendar", "cal-ics":"Apple · Outlook",
     calTitulo:"Valeria & Gianluca\u2019s wedding",
     calDetalle:"Ceremony 18:00 at Parroquia San Pedro de Lima (arrive 17:30). Bus to the reception 19:00. Reception from 20:00 at Casa García Alvarado, Miraflores.",
     regalos:"Gifts", "regalos-txt":"Having you there is what matters most. If you\u2019d also like to give us something, you can leave it at the reception or send it to one of these accounts.",
